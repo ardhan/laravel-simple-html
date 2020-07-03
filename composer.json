@@ -1,0 +1,32 @@
+{
+    "name": "ardhan/laravel-simple-html",
+    "description": "Membuat html melalui controller dengan lebih mudah",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ardhan Wahyu Rahmanu",
+            "email": "ardhan.matematika@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "HTML\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HTML\\SimpleHtmlServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+          "@php artisan vendor:publish --tag=public --force"
+        ],
+        "post-update-cmd": [
+          "@php artisan vendor:publish --tag=public --force"
+        ]
+    }
+}
