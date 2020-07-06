@@ -20,11 +20,12 @@
                 "Ardhan\\LaravelSimpleHtml\\SimpleHtmlServiceProvider"
             ],
             "aliases":{
-                "HtmlTag": "Ardhan\\LaravelSimpleHtml\\Facades\\HtmlTag"
+                "HtmlTag": "Ardhan\\LaravelSimpleHtml\\Facades\\HtmlTag",
+                "Div": "Ardhan\\LaravelSimpleHtml\\Facades\\Div"
             }
         }
     },
-    
+
     "scripts": {
         "post-install-cmd": [
           "@php artisan vendor:publish --tag=public --force"

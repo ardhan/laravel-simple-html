@@ -16,6 +16,10 @@ class SimpleHtmlServiceProvider extends ServiceProvider
         $this->app->bind('htmltag', function() {
             return new HtmlTag();
         });
+
+        $this->app->bind('div', function() {
+            return new Div();
+        });
     }
 
     /**

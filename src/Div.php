@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace Ardhan\LaravelSimpleHtml;
 
 class Div extends HtmlTag
 {
@@ -9,16 +9,5 @@ class Div extends HtmlTag
     public function __construct($content = '')
     {
         parent::__construct('div', '', '', $content);
-    }
-
-
-    /**
-     * Object akan dibuat jika object belum ada
-     * @return [type] [description]
-     */
-    public static function init($content = '')
-    {
-        $obj = new Div($content);
-        return $obj;
     }
 }
