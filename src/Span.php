@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace Ardhan\LaravelSimpleHtml;
 
 class Span extends HtmlTag
 {
@@ -10,16 +10,5 @@ class Span extends HtmlTag
     public function __construct($content)
     {
         parent::__construct('span', '', '', $content);
-    }
-
-
-    /**
-     * Object akan dibuat jika object belum ada
-     * @return [type] [description]
-     */
-    public static function init($content = '')
-    {
-        $obj = new Span($content);
-        return $obj;
     }
 }

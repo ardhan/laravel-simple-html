@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace Ardhan\LaravelSimpleHtml;
 
 class H1 extends HtmlTag
 {

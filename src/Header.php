@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace Ardhan\LaravelSimpleHtml;
 
 class Header extends HtmlTag
 {

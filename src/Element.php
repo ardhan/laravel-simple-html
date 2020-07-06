@@ -13,4 +13,5 @@ class Element
     public function Ul() { return new Ul(); }
     public function A() { return new A(); }
     public function H1() { return new H1(); }
+    public function Meta() { return new Meta(); }
 }
