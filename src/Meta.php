@@ -10,7 +10,7 @@ class Meta extends HtmlTag
     {
         parent::__construct('meta');
         $this->attr("name", $name)
-            ->attr("content", $content)
+            ->attr("content", $description)
             ->noClosing();
     }
 }
