@@ -1,5 +1,6 @@
 <?php
-namespace HTML\Facades;
+namespace Ardhan\LaravelSimpleHtml\Facades;
+
 
 use Illuminate\Support\Facades\Facade;
 
@@ -9,4 +10,6 @@ class HtmlTag extends Facade
     {
         return 'htmltag';
     }
+
+    
 }
