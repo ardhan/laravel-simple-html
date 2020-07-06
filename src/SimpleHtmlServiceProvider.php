@@ -1,6 +1,6 @@
 <?php
 
-namespace HTML;
+namespace LaravelSimpleHtml;
 
 use Illuminate\Support\ServiceProvider;
 

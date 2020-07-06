@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace LaravelSimpleHtml;
 
 class HtmlTag
 {
