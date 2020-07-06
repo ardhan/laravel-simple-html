@@ -11,4 +11,9 @@ class Element
     {
         return new Div();
     }
+
+    public function Span()
+    {
+        return new Span();
+    }
 }

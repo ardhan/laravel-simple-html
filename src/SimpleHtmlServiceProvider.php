@@ -13,12 +13,9 @@ class SimpleHtmlServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('htmltag', function() {
-            return new HtmlTag();
-        });
 
-        $this->app->bind('div', function() {
-            return new Div();
+        $this->app->bind('page', function() {
+            return new Page();
         });
 
         $this->app->bind('element', function() {
