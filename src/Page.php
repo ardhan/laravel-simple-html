@@ -64,7 +64,7 @@ class Page
      */
     public function author($author)
     {
-        $this->setAuthor($author);
+        $this->meta("author", $author);
         return $this;
     }
 
@@ -76,7 +76,7 @@ class Page
      */
     public function description($description)
     {
-        $this->setDescription($description);
+        $this->meta("description", $description);
         return $this;
     }
 
