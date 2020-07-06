@@ -31,17 +31,6 @@ class Page
 
 
     /**
-     * [addMeta description]
-     * @param [type] $name    [description]
-     * @param [type] $content [description]
-     */
-    public function addMeta($name, $content)
-    {
-        $this->meta[] = Meta::init()->attr("name", $name)->attr("content",$content);
-    }
-
-
-    /**
      * [meta description]
      * @param  [type] $name    [description]
      * @param  [type] $content [description]
@@ -49,7 +38,7 @@ class Page
      */
     public function meta($name, $content)
     {
-        $this->addMeta($name, $content);
+        $this->meta[$name] = $content;
         return $this;
     }
 
@@ -61,22 +50,10 @@ class Page
     protected function getMeta()
     {
         $meta = '';
-        foreach($this->meta as $m){
-            $meta .= $m;
+        foreach($this->meta as $k => $v){
+            $meta .= new Meta($k, $v);
         }
         return $meta;
-    }
-
-
-    /**
-     * [author description]
-     * @param  [type] $author [description]
-     * @return [type]         [description]
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-        $this->meta[] = $this->addMeta("author", $author);
     }
 
 
@@ -89,18 +66,6 @@ class Page
     {
         $this->setAuthor($author);
         return $this;
-    }
-
-
-    /**
-     * [description description]
-     * @param  [type] $description [description]
-     * @return [type]              [description]
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        $this->meta[] = $this->addMeta("description", $description);
     }
 
 

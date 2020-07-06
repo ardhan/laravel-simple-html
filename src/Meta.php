@@ -6,9 +6,11 @@ class Meta extends HtmlTag
     /**
      * [__construct description]
      */
-    public function __construct()
+    public function __construct($name, $description)
     {
         parent::__construct('meta');
-        $this->noClosing();
+        $this->attr("name", $name)
+            ->attr("content", $content)
+            ->noClosing();
     }
 }
