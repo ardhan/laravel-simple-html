@@ -21,7 +21,7 @@
             ],
             "aliases":{
                 "HtmlTag": "Ardhan\\LaravelSimpleHtml\\Facades\\HtmlTag",
-                "Div": "Ardhan\\LaravelSimpleHtml\\Facades\\Div"
+                "Element": "Ardhan\\LaravelSimpleHtml\\Facades\\Element"
             }
         }
     },

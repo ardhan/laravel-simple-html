@@ -20,6 +20,10 @@ class SimpleHtmlServiceProvider extends ServiceProvider
         $this->app->bind('div', function() {
             return new Div();
         });
+
+        $this->app->bind('element', function() {
+            return new Element();
+        });
     }
 
     /**
