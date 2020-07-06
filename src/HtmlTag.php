@@ -1,5 +1,5 @@
 <?php
-namespace LaravelSimpleHtml;
+namespace Ardhan\LaravelSimpleHtml;
 
 class HtmlTag
 {
