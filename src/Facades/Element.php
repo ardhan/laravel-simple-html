@@ -3,12 +3,12 @@ namespace Ardhan\LaravelSimpleHtml\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Div extends Facade
+class Element extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'div';
+        return 'element';
     }
- 
+
 
 }
