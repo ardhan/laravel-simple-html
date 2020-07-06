@@ -1,14 +1,15 @@
 <?php
 namespace HTML;
 
-class Div extends HtmlTag
+class Span extends HtmlTag
 {
     /**
      * [__construct description]
+     * @param [type] $content [description]
      */
-    public function __construct($content = '')
+    public function __construct($content)
     {
-        parent::__construct('div', '', '', $content);
+        parent::__construct('span', '', '', $content);
     }
 
 
@@ -18,7 +19,7 @@ class Div extends HtmlTag
      */
     public static function init($content = '')
     {
-        $obj = new Div($content);
+        $obj = new Span($content);
         return $obj;
     }
 }

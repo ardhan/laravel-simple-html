@@ -13,6 +13,9 @@ class SimpleHtmlServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('htmltag', function() {
+            return new HtmlTag();
+        });
     }
 
     /**
@@ -22,5 +25,6 @@ class SimpleHtmlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
     }
 }

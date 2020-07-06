@@ -1,27 +1,26 @@
 <?php
 namespace HTML;
 
-class Meta extends HtmlTag
+class H1 extends HtmlTag
 {
     /**
      * [__construct description]
+     * @param [type] $content [description]
      */
-    public function __construct()
+    public function __construct($content = '')
     {
-        parent::__construct('meta');
-        $this->setNoClosing();
+        parent::__construct('h1', '', '', $content);
     }
 
 
     /**
      * [init description]
-     * @param  string $content [description]
+     * @param  [type] $content [description]
      * @return [type]          [description]
      */
     public static function init($content = '')
     {
-        $obj = new self;
-        $obj->name('meta')->noclosing();
+        $obj = new H1($content);
         return $obj;
     }
 }

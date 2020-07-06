@@ -1,72 +1,114 @@
 <?php
 namespace HTML;
 
-/**
- * Kelas ini digunakan untuk membuat object berupa element html. Sebuah tag html teridiri
- * dari <nama_tag id class style attribute singleattribut>
- */
 class HtmlTag
 {
+    /**
+     * [protected description]
+     * @var [type]
+     */
     protected $tag = '';
-    protected $id = '';
-    protected $cls = '';
-    protected $style = [];
-    protected $attr = [];
-    protected $single_attr = '';
-    protected $content = [];
-    protected $closing = true;
-    protected static $obj = null;
 
-    public function __construct($tag, $id = '', $cls = '', $content = '')
-    {
-        $this->setName($tag);
-    }
-
-    public function setName($tag)
-    {
-        $this->tag = $tag;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function addClass($cls)
-    {
-        $this->cls .= $cls;
-    }
-
-
-
-    public function __toString()
-    {
-        $t = '';
-        $t .= '<'.$this->tag;
-        $t .= ($this->id != "") ? ' id="'.$this->id.'"' : '';
-        $t .= ($this->cls != "") ? ' class="'.trim($this->cls).'"' : '';
-        $t .= ($this->single_attr != "") ? ' '.$this->single_attr : '';
-        $t .= (count($this->style) > 0) ? ' style="'.this->getStyle().'"' : '';
-        $t .= (count($this->attr) > 0) ? ' '.trim(this->getAttr()) : '';
-        $t .= '>';
-        $t .= $this->content;
-        $t .= ($this->closing == true) ? '</'.$this->tag.'>' : '';
-        return $t;
-    }
 
     /**
-     * [name description]
-     * @param  [type] $tag [description]
-     * @return [type]      [description]
+     * [protected description]
+     * @var [type]
      */
-    public static function name($tag)
-    {
-        if(self::$obj == null){
-            self::$obj = new HtmlTag('');
-        }
+    protected $id = '';
 
-        self::$obj->setName($tag);
-        return self::$obj;
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $cls = '';
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $style = [];
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $attr = [];
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $single_attr = '';
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $content = [];
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $closing = true;
+
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected static $obj = null;
+
+
+    /**
+     * [__construct description]
+     * @param string $tag     [description]
+     * @param string $id      [description]
+     * @param string $cls     [description]
+     * @param string $content [description]
+     */
+    public function __construct($tag='', $id = '', $cls = '', $content = '')
+    {
+        $this->tag = $tag;
+        $this->id = $id;
+        $this->cls = $cls;
+        $this->content[] = $content;
+    }
+
+
+    /**
+     * [noclosing description]
+     * @return [type] [description]
+     */
+    public function noClosing()
+    {
+        $this->closing = false;
+        return $this;
+    }
+
+
+    public function useClosing()
+    {
+        $this->closing = true;
+        return $this;
+    }
+
+
+    /**
+     * [setName description]
+     * @param [type] $tag [description]
+     */
+    public function name($tag)
+    {
+        $this->tag = $tag;
+        return $this;
     }
 
 
@@ -75,91 +117,35 @@ class HtmlTag
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public static function id($id)
+    public function id($id)
     {
-        if(self::$obj == null){
-            self::$obj = new HtmlTag('');
-        }
-
-        self::$obj->setId($id);
-        return self::$obj;
+        $this->id = $id;
+        return $this;
     }
 
 
     /**
-     * [addClass description]
-     * @param [type] $cls [description]
+     * [cls description]
+     * @param  [type] $cls [description]
+     * @return [type]      [description]
      */
-    public static function addClass($cls)
+    public function cls($cls)
     {
-        self::$cls .= ' '.$cls;
-        return new static;
+        $this->cls[] = $cls;
+        return $this;
     }
 
 
     /**
-     * [addAttr description]
-     * @param [type] $name  [description]
-     * @param [type] $value [description]
+     * [attr description]
+     * @param  [type] $name  [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
      */
-    public static function addAttr($name, $value)
+    public function attr($name, $value)
     {
-        self::$attr[$name] = $value;
-        return new static;
-    }
-
-
-    /**
-     * [addSingleAttr description]
-     * @param [type] $attr [description]
-     */
-    public static function addSingleAttr($attr)
-    {
-        self::$single_attr = $attr;
-    }
-
-
-    /**
-     * [addStyle description]
-     * @param [type] $name  [description]
-     * @param [type] $value [description]
-     */
-    public function addStyle($name, $value)
-    {
-        self::$style[$name] = $value;
-        return new static;
-    }
-
-
-    /**
-     * [addContent description]
-     * @param [type] $content [description]
-     */
-    public static function addContent($content)
-    {
-        self::$content .= $content;
-        return new static;
-    }
-
-
-    public static function noClosing()
-    {
-        self::$closing = false;
-        return new static;
-    }
-
-
-    /**
-     * [getStyle description]
-     * @return [type] [description]
-     */
-    protected static function getStyle()
-    {
-        $style = '';
-        foreach(self::$style as $k => $v){
-            $style .= $k.':'.$v.';';
-        }
-        return $style;
+        $this->attr[$name] = $value;
+        return $this;
     }
 
 
@@ -167,25 +153,193 @@ class HtmlTag
      * [getAttr description]
      * @return [type] [description]
      */
-    protected static function getAttr()
+    function getAttr()
     {
         $attr = '';
-        foreach(self::$attr as $k => $v){
-            $attr .= $k.'="'.$v.'" ';
+        foreach($this->attr as $key => $value){
+            $attr .= $key.'="'.$value.'" ';
         }
-        return $attr;
+        return trim($attr);
     }
 
 
     /**
-     * [get description]
-     * @return [type] [description]
+     * [content description]
+     * @param  [type] $content [description]
+     * @return [type]          [description]
      */
-    public static function get()
+    public function content($content)
     {
-        $t = self::$obj;
-        self::$obj = null;
-        return $t;
+        $this->content[] = $content;
+        return $this;
     }
 
+
+    /**
+     * [getContent description]
+     * @return [type] [description]
+     */
+    public function getContent()
+    {
+        $content = '';
+        foreach($this->content as $c){
+            $content .= $c;
+        }
+        return $content;
+    }
+
+
+    /**
+     * [style description]
+     * @param  [type] $name  [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
+    public function style($name, $value)
+    {
+        $this->style[$name] = $value;
+        return $this;
+    }
+
+
+    /**
+     * [width description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function width($size)
+    {
+        $this->style('width', $size);
+        return $this;
+    }
+
+
+    /**
+     * [background_color description]
+     * @param  [type] $color [description]
+     * @return [type]        [description]
+     */
+    public function background($color)
+    {
+        $this->style('background', $color);
+        return $this;
+    }
+
+
+    /**
+     * [padding_left description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function padding_left($size)
+    {
+        $this->style('padding-left', $size);
+        return $this;
+    }
+
+
+    /**
+     * [padding_top description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function padding_top($size)
+    {
+        $this->style('padding-top', $size);
+        return $this;
+    }
+
+
+    /**
+     * [padding_right description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function padding_right($size)
+    {
+        $this->style('padding-right', $size);
+        return $this;
+    }
+
+
+    /**
+     * [padding_bottom description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function padding_bottom($size)
+    {
+        $this->style('padding-bottom', $size);
+        return $this;
+    }
+
+
+    /**
+     * [padding description]
+     * @param  string $left   [description]
+     * @param  string $right  [description]
+     * @param  string $top    [description]
+     * @param  string $bottom [description]
+     * @return [type]         [description]
+     */
+    public function padding($left = '', $right = '', $top = '', $bottom = '')
+    {
+        if(($right == '') && ($top == '') && ($bottom == '')){
+            $right = $left;
+            $top = $left;
+            $bottom = $left;
+        }
+
+        if($left != '') $this->padding_left($left);
+        if($right != '') $this->padding_right($right);
+        if($top != '') $this->padding_top($top);
+        if($bottom != '') $this->padding_bottom($bottom);
+
+        return $this;
+    }
+
+
+    /**
+     * [text_center description]
+     * @return [type] [description]
+     */
+    public function text_center()
+    {
+        $this->style('text-align', 'center');
+        return $this;
+    }
+
+
+    /**
+     * [getStyle description]
+     * @return [type] [description]
+     */
+    function getStyle()
+    {
+        $style = '';
+        foreach($this->style as $key => $value){
+            $style .= $key.':'.$value.';';
+        }
+        return $style;
+    }
+
+
+    /**
+     * [__toString description]
+     * @return string [description]
+     */
+    public function __toString()
+    {
+        $t = '';
+        $t .= '<'.$this->tag;
+        $t .= ($this->id != "") ? ' id="'.$this->id.'"' : '';
+        $t .= ($this->cls != "") ? ' class="'.trim($this->cls).'"' : '';
+        $t .= ($this->single_attr != "") ? ' '.$this->single_attr : '';
+        $t .= (count($this->style) > 0) ? ' style="'.$this->getStyle().'"' : '';
+        $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
+        $t .= '>';
+        $t .= $this->getContent();
+        $t .= ($this->closing == true) ? '</'.$this->tag.'>' : '';
+        return $t;
+    }
 }

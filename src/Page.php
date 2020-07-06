@@ -37,7 +37,20 @@ class Page
      */
     public function addMeta($name, $content)
     {
-        $this->$meta[] = Meta::addAttr("name", $name)->addAttr("content",$content)->get();
+        $this->meta[] = Meta::init()->attr("name", $name)->attr("content",$content);
+    }
+
+
+    /**
+     * [meta description]
+     * @param  [type] $name    [description]
+     * @param  [type] $content [description]
+     * @return [type]          [description]
+     */
+    public function meta($name, $content)
+    {
+        $this->addMeta($name, $content);
+        return $this;
     }
 
 
@@ -63,7 +76,19 @@ class Page
     public function setAuthor($author)
     {
         $this->author = $author;
-        $this->$meta[] = "sdf".Meta::addAttr("name", "author")->addAttr("content", $this->author)->get();
+        $this->meta[] = $this->addMeta("author", $author);
+    }
+
+
+    /**
+     * [author description]
+     * @param  [type] $author [description]
+     * @return [type]         [description]
+     */
+    public function author($author)
+    {
+        $this->setAuthor($author);
+        return $this;
     }
 
 
@@ -75,7 +100,19 @@ class Page
     public function setDescription($description)
     {
         $this->description = $description;
-        $this->$meta[] = Meta::addAttr("name", "description")->addAttr("description", $this->author)->get();
+        $this->meta[] = $this->addMeta("description", $description);
+    }
+
+
+    /**
+     * [description description]
+     * @param  [type] $description [description]
+     * @return [type]              [description]
+     */
+    public function description($description)
+    {
+        $this->setDescription($description);
+        return $this;
     }
 
 
@@ -87,6 +124,13 @@ class Page
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+
+    public function title($title)
+    {
+        $this->setTitle($title);
+        return $this;
     }
 
 
@@ -130,6 +174,13 @@ class Page
     }
 
 
+    public function content($content)
+    {
+        $this->addContent($content);
+        return $this;
+    }
+
+
     protected function getContent()
     {
         $content = '';
@@ -158,6 +209,8 @@ class Page
         $h .= '</body>';
         $h .= '</html>';
 
+        self::$obj = null;
+
         return $h;
     }
 
@@ -166,33 +219,12 @@ class Page
      * static function
      */
 
-    public static function build()
+    public static function init()
     {
-        if(self::$obj == null){
-            self::$obj = new Page();
-        }
+        $obj = new self;
+        return $obj;
     }
 
-    public function get()
-    {
-        $page = self::$obj->__toString();
-        self::$obj = null;
-        return $page;
-    }
-
-    public static function title($title)
-    {
-        self::build();
-        self::$obj->setTitle($title);
-        return self::$obj;
-    }
-
-    public static function author($author)
-    {
-        self::build();
-        self::$obj->setAuthor($author);
-        return self::$obj;
-    }
 
 
 
