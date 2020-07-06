@@ -1,4 +1,5 @@
 <?php
+namespace Ardhan\LaravelSimpleHtml;
 
 class Element
 {
