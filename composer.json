@@ -11,16 +11,20 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "HTML\\": "src/"
+            "Ardhan\\LaravelSimpleHtml\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "HTML\\SimpleHtmlServiceProvider"
-            ]
+                "Ardhan\\LaravelSimpleHtml\\SimpleHtmlServiceProvider"
+            ],
+            "aliases":{
+                "HtmlTag": "Ardhan\\LaravelSimpleHtml\\Facades\\HtmlTag"
+            }
         }
     },
+    
     "scripts": {
         "post-install-cmd": [
           "@php artisan vendor:publish --tag=public --force"
