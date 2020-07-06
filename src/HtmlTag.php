@@ -131,7 +131,7 @@ class HtmlTag
      */
     public function cls($cls)
     {
-        $this->cls[] = $cls;
+        $this->cls .= $cls;
         return $this;
     }
 
