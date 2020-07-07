@@ -190,8 +190,8 @@ class HtmlTag
     {
         if(count($this->cls) > 0){
             $cls = '';
-            foreach($this->cls as $c){
-                $cls .= $c . ' ';
+            foreach($this->cls as $key => $value){
+                $cls .= $value . ' ';
             }
 
             $this->attr("class", trim($cls));
@@ -368,6 +368,7 @@ class HtmlTag
      */
     public function __toString()
     {
+        $this->getStyle();
         $t = '';
         $t .= '<'.$this->tag;
         $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
