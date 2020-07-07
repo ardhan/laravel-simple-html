@@ -247,7 +247,7 @@ class HtmlTag
         if(count($this->style) > 0){
             $style = '';
             foreach($this->style as $key => $value){
-                $style .= $key.":".$value;
+                $style .= $key.":".$value.";";
             }
             $this->attr("style", $style);
         }
