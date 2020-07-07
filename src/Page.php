@@ -7,70 +7,77 @@ class Page
      * url css include pada head html
      * @var Array
      */
-    private $css= [];
+    protected $css= [];
 
 
     /**
      * url javascript include pada body html
      * @var Array
      */
-    private $js = [];
+    protected $js_top = [];
+
+
+    /**
+     * url javascript include pada body html
+     * @var Array
+     */
+    protected $js_bottom = [];
 
 
     /**
      * url javascript include pada head html
      * @var Array
      */
-    private $js_top = [];
+    protected $js_top = [];
 
 
     /**
      * informasi meta pada head html
      * @var Array
      */
-    private $meta = [];
+    protected $meta = [];
 
 
     /**
      * html title <title></title>
      * @var String
      */
-    private $title = '';
+    protected $title = '';
 
 
     /**
      * deskripsi html page, disimpan dengan meta
      * @var String
      */
-    private $description = '';
+    protected $description = '';
 
 
     /**
      * author dari page disimpan dengan meta
      * @var String
      */
-    private $author = '';
+    protected $author = '';
 
 
     /**
      * konten dari html yang, berada pada body
      * @var Array
      */
-    private $content = [];
+    protected $content = [];
 
 
     /**
      * default bahasa yang digunakan
      * @var String
      */
-    private $lang = 'id';
+    protected $lang = 'id';
 
 
     /**
      * default charset
      * @var String
      */
-    private $charset = 'utf-8';
+    protected $charset = 'utf-8';
 
 
     /**
@@ -119,13 +126,13 @@ class Page
      * resolve variable $meta menjadi kelas meta
      * @return String
      */
-    protected function getMeta()
+    protected function metaResolve()
     {
-        $meta = '';
-        foreach($this->meta as $k => $v){
-            $meta .= new Meta($k, $v);
+        if(count($this->meta) > 0){
+            foreach($this->meta as $k => $v){
+                $this->head->content(new Meta($k, $v));
+            }
         }
-        return $meta;
     }
 
 
@@ -220,12 +227,37 @@ class Page
 
 
     /**
-     * [addJS description]
+     * menambahkan anggota js
      * @param [type] $url [description]
      */
-    public function addJS($url)
+    public function js($url, $position = "bottom")
     {
-        $this->js[] = $url;
+        $this->js_{$position}[] = $url;
+        return $this;
+    }
+
+
+    /**
+     * [jsResolve description]
+     * @return [type] [description]
+     */
+    public function jsResolve()
+    {
+        if(count($this->js_top) > 0){
+            foreach($this->js_top as $jt){
+                $js = new HtmlTag('script');
+                $js->attr('src', $jt);
+                $this->head->content($js);
+            }
+        }
+
+        if(count($this->js_bottom) > 0){
+            foreach($this->js_bottom as $jb){
+                $js = new HtmlTag('script');
+                $js->attr('src', $jb);
+                $this->body->content($js);
+            }
+        }
     }
 
 
@@ -238,6 +270,8 @@ class Page
         //resolving
         $this->cssResolve();
         $this->contentResolve();
+        $this->metaResolve();
+        $this->head->content(new HtmlTag('title', $this->title));
 
         $html = new HtmlTag('html');
         $html->content($this->head)->content($this->body);
