@@ -3,38 +3,110 @@ namespace Ardhan\LaravelSimpleHtml;
 
 class Page
 {
+    /**
+     * url css include pada head html
+     * @var Array
+     */
     private $css= [];
-    private $js = [];
-    private $js_top = [];
-    private $meta = [];
-    private $title = '';
-    private $description = '';
-    private $author = '';
-    private $content = [];
-    private $lang = 'id';
-    private $charset = 'utf-8';
-    private static $obj = null;
 
 
     /**
-     * [__construct description]
-     * @param string $title       [description]
-     * @param string $author      [description]
-     * @param string $description [description]
+     * url javascript include pada body html
+     * @var Array
+     */
+    private $js = [];
+
+
+    /**
+     * url javascript include pada head html
+     * @var Array
+     */
+    private $js_top = [];
+
+
+    /**
+     * informasi meta pada head html
+     * @var Array
+     */
+    private $meta = [];
+
+
+    /**
+     * html title <title></title>
+     * @var String
+     */
+    private $title = '';
+
+
+    /**
+     * deskripsi html page, disimpan dengan meta
+     * @var String
+     */
+    private $description = '';
+
+
+    /**
+     * author dari page disimpan dengan meta
+     * @var String
+     */
+    private $author = '';
+
+
+    /**
+     * konten dari html yang, berada pada body
+     * @var Array
+     */
+    private $content = [];
+
+
+    /**
+     * default bahasa yang digunakan
+     * @var String
+     */
+    private $lang = 'id';
+
+
+    /**
+     * default charset
+     * @var String
+     */
+    private $charset = 'utf-8';
+
+
+    /**
+     * htmltag untuk head
+     * @var Object HtmlTag
+     */
+    protected $head;
+
+
+    /**
+     * htmltag untuk body
+     * @var Object HtmlTag
+     */
+    protected $body;
+
+    /**
+     * Konstruksi kelas page
+     * @param string $title       judul page
+     * @param string $author      author page
+     * @param string $description deskripsi page
      */
     public function __construct($title = '', $author = '', $description = '')
     {
-        $this->setTitle = $title;
-        $this->setAuthor = $author;
-        $this->setDescription = $description;
+        $this->title($title);
+        $this->author($author);
+        $this->description($description);
+        $this->head = new HtmlTag('head');
+        $this->body = new HtmlTag('body');
     }
 
 
     /**
-     * [meta description]
-     * @param  [type] $name    [description]
-     * @param  [type] $content [description]
-     * @return [type]          [description]
+     * menambahkan anggota pada variable $meta
+     * @param  String $name    nama meta
+     * @param  String $content content meta
+     * @return Object
      */
     public function meta($name, $content)
     {
@@ -44,8 +116,8 @@ class Page
 
 
     /**
-     * [getMeta description]
-     * @return [type] [description]
+     * resolve variable $meta menjadi kelas meta
+     * @return String
      */
     protected function getMeta()
     {
@@ -58,21 +130,22 @@ class Page
 
 
     /**
-     * [author description]
-     * @param  [type] $author [description]
-     * @return [type]         [description]
+     * set variable $author
+     * @param  String $author
+     * @return Object
      */
     public function author($author)
     {
+        $this->author = $author;
         $this->meta("author", $author);
         return $this;
     }
 
 
     /**
-     * [description description]
-     * @param  [type] $description [description]
-     * @return [type]              [description]
+     * set variable description
+     * @param  String $description
+     * @return Object
      */
     public function description($description)
     {
@@ -82,40 +155,43 @@ class Page
 
 
     /**
-     * [title description]
+     * set variable $title
      * @param  [type] $title [description]
      * @return [type]        [description]
      */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-
     public function title($title)
     {
-        $this->setTitle($title);
+        $this->$title = $title;
         return $this;
     }
 
 
     /**
-     * [addCSS description]
-     * @param [type] $url [description]
+     * menambahkan anggota css
+     * @param String $url
      */
-    public function addCSS($url)
+    public function css($url)
     {
         $this->css[] = $url;
+        return $this;
     }
 
 
+    /**
+     * resolve $css menjadi html tag link
+     * @return Void
+     */
     protected function getCSS()
     {
-        $css = '';
-        foreach($this->css as $c){
-            $css = $c;
+        if(count($this->css) > 0){
+
+            foreach($this->css as $c){
+                $css = new HtmlTag('link');
+                $css->attr('rel', 'stylesheet');
+                $css->attr('href', $c);
+                $this->head->content($css);
+            }
         }
-        return $css;
     }
 
 
