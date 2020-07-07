@@ -90,6 +90,18 @@ class HtmlTag
 
 
     /**
+     * set variable $tag
+     * @param  String $tag nama tag
+     * @return Object
+     */
+    public function tag($tag)
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+
+
+    /**
      * set variable $closing menjadi false
      * @return Object
      */
@@ -107,54 +119,6 @@ class HtmlTag
     public function useClosing()
     {
         $this->closing = true;
-        return $this;
-    }
-
-
-    /**
-     * set variable $tag
-     * @param  String $tag nama tag
-     * @return Object
-     */
-    public function tag($tag)
-    {
-        $this->tag = $tag;
-        return $this;
-    }
-
-
-    /**
-     * set variable $id
-     * @param  String $id nama id
-     * @return Object
-     */
-    public function id($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-
-    /**
-     * set variable $cls
-     * @param  [type] $cls [description]
-     * @return [type]      [description]
-     */
-    public function cls($cls)
-    {
-        $this->cls[$cls] = $cls;
-        return $this;
-    }
-
-
-    /**
-     * unset item pada variable $cls
-     * @param  String $cls array key yang akan dihapus
-     * @return Object
-     */
-    public function removeClass($cls)
-    {
-        unset($this->cls[$cls]);
         return $this;
     }
 
@@ -183,6 +147,56 @@ class HtmlTag
             $attr .= $key.'="'.$value.'" ';
         }
         return trim($attr);
+    }
+
+
+    /**
+     * set variable $id
+     * @param  String $id nama id
+     * @return Object
+     */
+    public function id($id)
+    {
+        $this->id = $id;
+        $this->attr("id", $this->id);
+        return $this;
+    }
+
+
+    /**
+     * set variable $cls
+     * @param  [type] $cls [description]
+     * @return [type]      [description]
+     */
+    public function cls($cls)
+    {
+        $this->cls[$cls] = $cls;
+        return $this;
+    }
+
+
+    /**
+     * unset item pada variable $cls
+     * @param  String $cls array key yang akan dihapus
+     * @return Object
+     */
+    public function removeCls($cls)
+    {
+        unset($this->cls[$cls]);
+        return $this;
+    }
+
+
+    public function getCls()
+    {
+        if(count($this->cls) > 0){
+            $cls = '';
+            foreach($this->cls as $c){
+                $cls .= $c . ' ';
+            }
+
+            $this->attr("class", trim($cls));
+        }
     }
 
 
@@ -223,6 +237,23 @@ class HtmlTag
         $this->style[$name] = $value;
         return $this;
     }
+
+
+    /**
+     * resolve style menjadi atribut html
+     * @return Void
+     */
+    public function getStyle()
+    {
+        if(count($this->style) > 0){
+            $style = '';
+            foreach($this->style as $key => $value){
+                $style .= $key.":".$value;
+            }
+            $this->attr("style", $style);
+        }
+    }
+
 
     /**
      * menambahkan style width
@@ -340,10 +371,6 @@ class HtmlTag
     {
         $t = '';
         $t .= '<'.$this->tag;
-        $t .= ($this->id != "") ? ' id="'.$this->id.'"' : '';
-        $t .= ($this->cls != "") ? ' class="'.trim($this->cls).'"' : '';
-        $t .= ($this->single_attr != "") ? ' '.$this->single_attr : '';
-        $t .= (count($this->style) > 0) ? ' style="'.$this->getStyle().'"' : '';
         $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
         $t .= '>';
         $t .= $this->getContent();
