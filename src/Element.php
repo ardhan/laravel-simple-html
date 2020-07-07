@@ -38,18 +38,24 @@ class Element
         return new Span();
     }
 
-    public function Li() { return new Li(); }
+    public function Li() {
+        return new HtmlTag('li');
+    }
 
-    public function Ul() { return new Ul(); }
+    public function Ul() {
+        return new HtmlTag('ul');
+    }
 
-    public function A() { return new A(); }
+    public function A() {
+        return new HtmlTag('a');
+    }
 
     public function P($text) {
         return new P();
     }
 
     public function H1($text) {
-        return new H1();
+        return new HtmlTag('h1');
     }
 
     public function H2() { return new H2(); }
