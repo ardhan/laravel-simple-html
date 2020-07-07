@@ -4,88 +4,94 @@ namespace Ardhan\LaravelSimpleHtml;
 class HtmlTag
 {
     /**
-     * [protected description]
-     * @var [type]
+     * nama dari html tag contoh div
+     * @var String
      */
     protected $tag = '';
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * id dari suatu komponen
+     * contoh <div id="div_id"></div>
+     * @var String
      */
     protected $id = '';
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * kelas dari suatu komponen
+     * contoh <div class='row span10'></div>
+     * cara menyimpan: $cls["row"] = "row";
+     * @var Array
      */
-    protected $cls = '';
+    protected $cls = [];
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * style/css inline pada komponen
+     * contoh <div style='background-color:red'></div>
+     * cara menyimpan: $style["background-color"] = "red";
+     * @var Array
      */
     protected $style = [];
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * atribut khusus pada komponen
+     * contoh: <meta name="author" content="ini adalah author">
+     * cara menyimpan: $attr["name"] = "name";
+     * @var Array
      */
     protected $attr = [];
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * atribut pada komponen
+     * contoh: <option selected>
+     * cara menyimpan: $single_attr["selected"] = "selected"
+     * @var Array
      */
-    protected $single_attr = '';
+    protected $single_attr = [];
 
 
     /**
-     * [protected description]
-     * @var [type]
+     * content dari tag
+     * contoh: <div>ini content</div>
+     * cara menyimpan: $content[] = $content
+     * @var Array
      */
     protected $content = [];
 
 
     /**
-     * [protected description]
+     * boolean yang menyatakan apakah tag menggunakan tutup atau tidak
+     * contoh menggunakan tutup <div></div>
+     * contoh tanpa tutup <meta> <input>
      * @var [type]
      */
     protected $closing = true;
 
 
-
     /**
-     * [protected description]
-     * @var [type]
+     * fungsi untuk mengkonstruksi kelas, urutan variable bedasarkan prioritas
+     * @param string $tag     prioritas karena setiap tag harus memiliki nama
+     * @param string $content dijadikan prioritas agar setiap membuat kelas mudah memasukkan konten
+     * @param string $cls     kelas berada di atas id karena kelas lebih sering digunakan
+     * @param string $id
      */
-    protected static $obj = null;
-
-
-    /**
-     * [__construct description]
-     * @param string $tag     [description]
-     * @param string $id      [description]
-     * @param string $cls     [description]
-     * @param string $content [description]
-     */
-    public function __construct($tag='', $id = '', $cls = '', $content = '')
+    public function __construct($tag, $content = '', $cls = '', $id = '', Style $style)
     {
         $this->tag = $tag;
-        $this->id = $id;
-        $this->cls = $cls;
         $this->content[] = $content;
+        $this->cls = $cls;
+        $this->id = $id;
+        $this->style = $style;
     }
 
 
     /**
-     * [noclosing description]
-     * @return [type] [description]
+     * set variable $closing menjadi false
+     * @return Object
      */
     public function noClosing()
     {
@@ -94,6 +100,10 @@ class HtmlTag
     }
 
 
+    /**
+     * set variable $closing menjadi true
+     * @return Object
+     */
     public function useClosing()
     {
         $this->closing = true;
@@ -102,10 +112,11 @@ class HtmlTag
 
 
     /**
-     * [setName description]
-     * @param [type] $tag [description]
+     * set variable $tag
+     * @param  String $tag nama tag
+     * @return Object
      */
-    public function name($tag)
+    public function tag($tag)
     {
         $this->tag = $tag;
         return $this;
@@ -113,9 +124,9 @@ class HtmlTag
 
 
     /**
-     * [id description]
-     * @param  [type] $id [description]
-     * @return [type]     [description]
+     * set variable $id
+     * @param  String $id nama id
+     * @return Object
      */
     public function id($id)
     {
@@ -125,22 +136,34 @@ class HtmlTag
 
 
     /**
-     * [cls description]
+     * set variable $cls
      * @param  [type] $cls [description]
      * @return [type]      [description]
      */
     public function cls($cls)
     {
-        $this->cls .= $cls;
+        $this->cls[$cls] = $cls;
         return $this;
     }
 
 
     /**
-     * [attr description]
-     * @param  [type] $name  [description]
-     * @param  [type] $value [description]
-     * @return [type]        [description]
+     * unset item pada variable $cls
+     * @param  String $cls array key yang akan dihapus
+     * @return Object
+     */
+    public function removeClass($cls)
+    {
+        unset($this->cls[$cls]);
+        return $this;
+    }
+
+
+    /**
+     * menambahkan anggota variable $attr
+     * @param  String $name  nama atribut
+     * @param  String $value nilai atribut
+     * @return Object
      */
     public function attr($name, $value)
     {
@@ -150,8 +173,8 @@ class HtmlTag
 
 
     /**
-     * [getAttr description]
-     * @return [type] [description]
+     * resolve atribut $attr menjadi string
+     * @return String
      */
     function getAttr()
     {
@@ -164,9 +187,9 @@ class HtmlTag
 
 
     /**
-     * [content description]
-     * @param  [type] $content [description]
-     * @return [type]          [description]
+     * menambahkan anggota variable $content
+     * @param  String $content konten yang dimasukkan
+     * @return
      */
     public function content($content)
     {
@@ -176,8 +199,8 @@ class HtmlTag
 
 
     /**
-     * [getContent description]
-     * @return [type] [description]
+     * resolve variable $content menjadi string
+     * @return String
      */
     public function getContent()
     {
@@ -190,10 +213,10 @@ class HtmlTag
 
 
     /**
-     * [style description]
-     * @param  [type] $name  [description]
-     * @param  [type] $value [description]
-     * @return [type]        [description]
+     * menambahkan anggota ke variable $style
+     * @param  String $name  nama style
+     * @param  String $value nilai style
+     * @return Object
      */
     public function style($name, $value)
     {
@@ -201,21 +224,20 @@ class HtmlTag
         return $this;
     }
 
-
     /**
-     * [width description]
+     * menambahkan style width
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
     public function width($size)
     {
-        $this->style('width', $size);
+        $this->style("width", $size);
         return $this;
     }
 
 
     /**
-     * [background_color description]
+     * menambahkan style background
      * @param  [type] $color [description]
      * @return [type]        [description]
      */
@@ -227,7 +249,7 @@ class HtmlTag
 
 
     /**
-     * [padding_left description]
+     * menambahkan style padding-left
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
@@ -239,7 +261,7 @@ class HtmlTag
 
 
     /**
-     * [padding_top description]
+     * menambahkan style padding-top
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
@@ -251,7 +273,7 @@ class HtmlTag
 
 
     /**
-     * [padding_right description]
+     * menambahkan style padding-right
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
@@ -263,7 +285,7 @@ class HtmlTag
 
 
     /**
-     * [padding_bottom description]
+     * menambahkan style padding-bottom
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
@@ -307,20 +329,6 @@ class HtmlTag
     {
         $this->style('text-align', 'center');
         return $this;
-    }
-
-
-    /**
-     * [getStyle description]
-     * @return [type] [description]
-     */
-    function getStyle()
-    {
-        $style = '';
-        foreach($this->style as $key => $value){
-            $style .= $key.':'.$value.';';
-        }
-        return $style;
     }
 
 
