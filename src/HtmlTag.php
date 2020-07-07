@@ -369,6 +369,7 @@ class HtmlTag
     public function __toString()
     {
         $this->getStyle();
+        $this->getCls();
         $t = '';
         $t .= '<'.$this->tag;
         $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
