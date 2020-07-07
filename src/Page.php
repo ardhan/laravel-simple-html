@@ -124,7 +124,7 @@ class Page
     {
         if(count($this->meta) > 0){
             foreach($this->meta as $k => $v){
-                $this->head->content(new Meta($k, $v));
+                $this->head->content(El::meta($k, $v));
             }
         }
     }

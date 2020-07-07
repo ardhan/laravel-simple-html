@@ -16,8 +16,10 @@ class Element
     /**
      * [Meta description]
      */
-    public function Meta() {
-        return new Meta();
+    public function Meta($name, $value) {
+        $meta = new HtmlTag('meta');
+        $meta->noClosing()->attr("name", $name)->attr("content", $value);
+        return $meta;
     }
 
 
@@ -25,7 +27,7 @@ class Element
      * [Div description]
      */
     public function Div() {
-        return new Div();
+        return new HtmlTag('div');
     }
 
 
