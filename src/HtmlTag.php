@@ -169,7 +169,7 @@ class HtmlTag
      */
     public function cls($cls)
     {
-        $this->cls["abc"] = "abc";
+        $this->cls[$cls] = $cls;
         return $this;
     }
 
