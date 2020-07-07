@@ -226,7 +226,13 @@ class Page
      */
     public function js($url, $position = "bottom")
     {
-        $this->js_{$position}[] = $url;
+        if($position == "bottom"){
+            $this->js_bottom[] = $url;
+        }
+        elseif($position == "top"){
+            $this->js_top[] = $url;
+        }
+
         return $this;
     }
 
