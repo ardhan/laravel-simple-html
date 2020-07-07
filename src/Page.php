@@ -25,13 +25,6 @@ class Page
 
 
     /**
-     * url javascript include pada head html
-     * @var Array
-     */
-    protected $js_top = [];
-
-
-    /**
      * informasi meta pada head html
      * @var Array
      */
