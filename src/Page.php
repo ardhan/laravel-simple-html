@@ -181,7 +181,7 @@ class Page
      * resolve $css menjadi html tag link
      * @return Void
      */
-    protected function getCSS()
+    protected function cssResolve()
     {
         if(count($this->css) > 0){
 
@@ -238,20 +238,17 @@ class Page
      */
     public function __toString()
     {
+        //resolve
+        $this->cssResolve();
+
         $h  = '<!DOCTYPE HTML>';
         $h .= '<html>';
-        $h .= '<head lang="'.$this->lang.'">';
-        $h .= $this->getMeta();
-        $h .= $this->getCSS();
-        $h .= '<title>'.$this->title.'</title>';
-        $h .= '</head>';
+        $h .= $this->head;
+
         $h .= '<body>';
         $h .= $this->getContent();
         $h .= '</body>';
         $h .= '</html>';
-
-        self::$obj = null;
-
         return $h;
     }
 
