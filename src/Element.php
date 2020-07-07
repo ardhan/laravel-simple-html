@@ -7,15 +7,34 @@ class Element
     {
     }
 
-    public function Meta() {
-        $meta = new HtmlTag('meta');
-        $meta->noClosing();
-        return $meta; 
+    public function Tag($tag)
+    {
+        return new HtmlTag($tag);
     }
 
-    public function Div() { return new Div(); }
 
-    public function Span() { return new Span(); }
+    /**
+     * [Meta description]
+     */
+    public function Meta() {
+        return new Meta();
+    }
+
+
+    /**
+     * [Div description]
+     */
+    public function Div() {
+        return new Div();
+    }
+
+
+    /**
+     * [Span description]
+     */
+    public function Span() {
+        return new Span();
+    }
 
     public function Li() { return new Li(); }
 
@@ -23,9 +42,13 @@ class Element
 
     public function A() { return new A(); }
 
-    public function P() { return new P(); }
+    public function P($text) {
+        return new P();
+    }
 
-    public function H1() { return new H1(); }
+    public function H1($text) {
+        return new H1();
+    }
 
     public function H2() { return new H2(); }
 

@@ -85,6 +85,7 @@ class HtmlTag
         if($content != '') $this->content($content);
         if($cls != '') $this->cls($cls);
         if($this->id != '') $this->id($id);
+        return $this;
     }
 
 

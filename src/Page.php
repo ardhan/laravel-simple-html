@@ -1,5 +1,6 @@
 <?php
 namespace Ardhan\LaravelSimpleHtml;
+use Ardhan\LaravelSimpleHtml\Facades\Element as El;
 
 class Page
 {
@@ -97,8 +98,8 @@ class Page
         $this->title($title);
         $this->author($author);
         $this->description($description);
-        $this->head = new HtmlTag('head');
-        $this->body = new HtmlTag('body');
+        $this->head = El::tag('head');
+        $this->body = El::tag('body');
     }
 
 
