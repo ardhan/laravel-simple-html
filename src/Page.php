@@ -178,13 +178,37 @@ class Page
 
 
     /**
+     * [addContent description]
+     * @param [type] $content [description]
+     */
+    public function content($content)
+    {
+        $this->content[] = $content;
+        return $this;
+    }
+
+
+    /**
+     * [contentResolve description]
+     * @return [type] [description]
+     */
+    protected function contentResolve()
+    {
+        if(count($this->content) > 0){
+            foreach($this->content as $c){
+                $this->body->content($c);
+            }
+        }
+    }
+
+
+    /**
      * resolve $css menjadi html tag link
      * @return Void
      */
     protected function cssResolve()
     {
         if(count($this->css) > 0){
-
             foreach($this->css as $c){
                 $css = new HtmlTag('link');
                 $css->attr('rel', 'stylesheet');
@@ -206,64 +230,17 @@ class Page
 
 
     /**
-     * [addContent description]
-     * @param [type] $content [description]
-     */
-    public function addContent($content)
-    {
-        $this->content[] = $content;
-    }
-
-
-    public function content($content)
-    {
-        $this->addContent($content);
-        return $this;
-    }
-
-
-    protected function getContent()
-    {
-        $content = '';
-        foreach($this->content as $c){
-            $content .= $c;
-        }
-        return $content;
-    }
-
-
-    /**
-     * [get description]
-     * @return [type] [description]
+     * resolving object page
+     * @return String
      */
     public function __toString()
     {
-        //resolve
+        //resolving
         $this->cssResolve();
+        $this->contentResolve();
 
-        $h  = '<!DOCTYPE HTML>';
-        $h .= '<html>';
-        $h .= $this->head;
-
-        $h .= '<body>';
-        $h .= $this->getContent();
-        $h .= '</body>';
-        $h .= '</html>';
-        return $h;
+        $html = new HtmlTag('html');
+        $html->content($this->head)->content($this->body);
+        return '<!DOCTYPE HTML>'.$h;
     }
-
-
-    /**
-     * static function
-     */
-
-    public static function init()
-    {
-        $obj = new self;
-        return $obj;
-    }
-
-
-
-
 }
