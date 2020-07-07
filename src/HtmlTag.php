@@ -82,9 +82,9 @@ class HtmlTag
     public function __construct($tag, $content = '', $cls = '', $id = '')
     {
         $this->tag = $tag;
-        $this->content[] = $content;
-        $this->cls = $cls;
-        $this->id = $id;
+        if($content != '') $this->content($content);
+        if($cls != ) $this->cls($cls);
+        if($this->id != '') $this->id($id);
     }
 
 
