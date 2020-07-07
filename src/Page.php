@@ -241,6 +241,6 @@ class Page
 
         $html = new HtmlTag('html');
         $html->content($this->head)->content($this->body);
-        return '<!DOCTYPE HTML>'.$h;
+        return '<!DOCTYPE HTML>'.$html;
     }
 }
