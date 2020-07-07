@@ -79,13 +79,12 @@ class HtmlTag
      * @param string $cls     kelas berada di atas id karena kelas lebih sering digunakan
      * @param string $id
      */
-    public function __construct($tag, $content = '', $cls = '', $id = '', Style $style)
+    public function __construct($tag, $content = '', $cls = '', $id = '')
     {
         $this->tag = $tag;
         $this->content[] = $content;
         $this->cls = $cls;
         $this->id = $id;
-        $this->style = $style;
     }
 
 
