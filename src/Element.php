@@ -165,7 +165,6 @@ class Element
      */
     public function Form($action = "", $method = "POST")
     {
-        echo "asfasfsdf";
         return new Form($action, $method);
     }
 
