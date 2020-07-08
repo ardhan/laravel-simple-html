@@ -57,6 +57,11 @@ class Element
         return new HtmlTag('li', $text);
     }
 
+    public function List()
+    {
+        return new List();
+    }
+
 
     /**
      * [P description]
