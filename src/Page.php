@@ -6,84 +6,84 @@ class Page
 {
     /**
      * url css include pada head html
-     * @var Array
+     * @var array
      */
     protected $css= [];
 
 
     /**
      * url javascript include pada body html
-     * @var Array
+     * @var array
      */
     protected $js_top = [];
 
 
     /**
      * url javascript include pada body html
-     * @var Array
+     * @var array
      */
     protected $js_bottom = [];
 
 
     /**
      * informasi meta pada head html
-     * @var Array
+     * @var array
      */
     protected $meta = [];
 
 
     /**
      * html title <title></title>
-     * @var String
+     * @var string
      */
     protected $title = '';
 
 
     /**
      * deskripsi html page, disimpan dengan meta
-     * @var String
+     * @var string
      */
     protected $description = '';
 
 
     /**
      * author dari page disimpan dengan meta
-     * @var String
+     * @var string
      */
     protected $author = '';
 
 
     /**
      * konten dari html yang, berada pada body
-     * @var Array
+     * @var array
      */
     protected $content = [];
 
 
     /**
      * default bahasa yang digunakan
-     * @var String
+     * @var string
      */
     protected $lang = 'id';
 
 
     /**
      * default charset
-     * @var String
+     * @var string
      */
     protected $charset = 'utf-8';
 
 
     /**
      * htmltag untuk head
-     * @var Object HtmlTag
+     * @var object HtmlTag
      */
     protected $head;
 
 
     /**
      * htmltag untuk body
-     * @var Object HtmlTag
+     * @var object HtmlTag
      */
     protected $body;
 
@@ -105,9 +105,9 @@ class Page
 
     /**
      * menambahkan anggota pada variable $meta
-     * @param  String $name    nama meta
-     * @param  String $content content meta
-     * @return Object
+     * @param  string $name    nama meta
+     * @param  string $content content meta
+     * @return object
      */
     public function meta($name, $content)
     {
@@ -118,7 +118,7 @@ class Page
 
     /**
      * resolve variable $meta menjadi kelas meta
-     * @return String
+     * @return string
      */
     protected function metaResolve()
     {
@@ -132,8 +132,8 @@ class Page
 
     /**
      * set variable $author
-     * @param  String $author
-     * @return Object
+     * @param  string $author
+     * @return object
      */
     public function author($author)
     {
@@ -145,8 +145,8 @@ class Page
 
     /**
      * set variable description
-     * @param  String $description
-     * @return Object
+     * @param  string $description
+     * @return object
      */
     public function description($description)
     {
@@ -169,7 +169,7 @@ class Page
 
     /**
      * menambahkan anggota css
-     * @param String $url
+     * @param string $url
      */
     public function css($url)
     {
@@ -205,15 +205,14 @@ class Page
 
     /**
      * resolve $css menjadi html tag link
-     * @return Void
+     * @return void
      */
     protected function cssResolve()
     {
         if(count($this->css) > 0){
             foreach($this->css as $c){
                 $css = new HtmlTag('link');
-                $css->attr('rel', 'stylesheet');
-                $css->attr('href', $c);
+                $css->attr('rel', 'stylesheet')->attr('href', asset($c))->noClosing();
                 $this->head->content($css);
             }
         }
@@ -221,16 +220,18 @@ class Page
 
 
     /**
-     * menambahkan anggota js
-     * @param [type] $url [description]
+     * [js description]
+     * @param  string $url
+     * @param  string $position
+     * @return object
      */
     public function js($url, $position = "bottom")
     {
         if($position == "bottom"){
-            $this->js_bottom[] = $url;
+            $this->js_bottom[] = asset($url);
         }
         elseif($position == "top"){
-            $this->js_top[] = $url;
+            $this->js_top[] = asset($url);
         }
 
         return $this;
@@ -239,7 +240,7 @@ class Page
 
     /**
      * [jsResolve description]
-     * @return [type] [description]
+     * @return void
      */
     public function jsResolve()
     {
@@ -262,8 +263,20 @@ class Page
 
 
     /**
+     * [background description]
+     * @param  string
+     * @return object
+     */
+    public function background($color)
+    {
+        $this->body->background($color);
+        return $this;
+    }
+
+
+    /**
      * resolving object page
-     * @return String
+     * @return string
      */
     public function __toString()
     {
