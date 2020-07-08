@@ -79,7 +79,7 @@ class Element
      */
     public function H1($text)
     {
-        return new HtmlTag('h1' $text);
+        return new HtmlTag('h1', $text);
     }
 
 
@@ -127,9 +127,9 @@ class Element
      * [H5 description]
      * @param [type] $text [description]
      */
-    public function H5($text)
+    public function H6($text)
     {
-        return new HtmlTag('h5', $text);
+        return new HtmlTag('h6', $text);
     }
 
 
