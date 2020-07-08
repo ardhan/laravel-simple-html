@@ -2,7 +2,7 @@
 namespace Ardhan\LaravelSimpleHtml;
 use Ardhan\LaravelSimpleHtml\Facades\Element as El;
 
-class List extends HtmlTag
+class Ls extends HtmlTag
 {
     /**
      * type dari list, apakah ul atau ol
