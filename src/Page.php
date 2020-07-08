@@ -269,9 +269,10 @@ class Page
     {
         //resolving
         $this->cssResolve();
-        $this->contentResolve();
         $this->metaResolve();
         $this->head->content(new HtmlTag('title', $this->title));
+        $this->contentResolve();
+        $this->jsResolve();
 
         $html = new HtmlTag('html');
         $html->content($this->head)->content($this->body);
