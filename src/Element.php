@@ -16,7 +16,8 @@ class Element
     /**
      * [Meta description]
      */
-    public function Meta($name, $value) {
+    public function Meta($name, $value)
+    {
         $meta = new HtmlTag('meta');
         $meta->noClosing()->attr("name", $name)->attr("content", $value);
         return $meta;
@@ -26,7 +27,8 @@ class Element
     /**
      * [Div description]
      */
-    public function Div() {
+    public function Div()
+    {
         return new HtmlTag('div');
     }
 
@@ -34,48 +36,123 @@ class Element
     /**
      * [Span description]
      */
-    public function Span() {
-        return new Span();
+    public function Span()
+    {
+        return new HtmlTag('span');
     }
 
-    public function Li() {
-        return new HtmlTag('li');
+
+    /**
+     * [A description]
+     */
+    public function A($text, $url)
+    {
+        $a = new HtmlTag('a', $text);
+        $a->attr("url", $url);
+        return $a;
     }
 
-    public function Ul() {
-        return new HtmlTag('ul');
+    public function Li($text)
+    {
+        return new HtmlTag('li', $text);
     }
 
-    public function A() {
-        return new HtmlTag('a');
+
+    /**
+     * [P description]
+     * @param [type] $text [description]
+     */
+    public function P($text)
+    {
+        return new HtmlTag('p', $text);
     }
 
-    public function P($text) {
-        return new P();
+
+    /**
+     * [H1 description]
+     * @param [type] $text [description]
+     */
+    public function H1($text)
+    {
+        return new HtmlTag('h1' $text);
     }
 
-    public function H1($text) {
-        return new HtmlTag('h1');
+
+    /**
+     * [H2 description]
+     * @param [type] $text [description]
+     */
+    public function H2($text)
+    {
+        return new HtmlTag('h2', $text);
     }
 
-    public function H2() { return new H2(); }
 
-    public function H3() { return new H3(); }
+    /**
+     * [H3 description]
+     * @param [type] $text [description]
+     */
+    public function H3($text)
+    {
+        return new HtmlTag('h3', $text);
+    }
 
-    public function H4() { return new H4(); }
 
-    public function H5() { return new H5(); }
+    /**
+     * [H4 description]
+     * @param [type] $text [description]
+     */
+    public function H4($text)
+    {
+        return new HtmlTag('h4', $text);
+    }
 
-    public function H6() { return new H6(); }
 
-    public function Table() { return new Table(); }
+    /**
+     * [H5 description]
+     * @param [type] $text [description]
+     */
+    public function H5($text)
+    {
+        return new HtmlTag('h5', $text);
+    }
 
-    public function Thead() { return new Thead(); }
 
-    public function Tbody() { return new Tbody(); }
+    /**
+     * [H5 description]
+     * @param [type] $text [description]
+     */
+    public function H5($text)
+    {
+        return new HtmlTag('h5', $text);
+    }
 
-    public function Tr() { return new Tr(); }
 
-    public function Td() { return new Td(); }
+    /**
+     * [Table description]
+     */
+    public function Table()
+    {
+        return new Table();
+    }
+
+
+    /**
+     * [Ul description]
+     */
+    public function Ul()
+    {
+        return new Ul();
+    }
+
+
+    /**
+     * [Form description]
+     */
+    public function Form()
+    {
+        return new Form();
+    }
+
 
 }
