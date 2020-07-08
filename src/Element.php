@@ -165,7 +165,7 @@ class Element
      */
     public function Form($action = "", $method = "POST")
     {
-        return new Form($action = "", $method = "POST");
+        return new Form($action, $method);
     }
 
 
