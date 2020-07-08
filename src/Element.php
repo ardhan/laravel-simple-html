@@ -48,7 +48,7 @@ class Element
     public function A($text, $url)
     {
         $a = new HtmlTag('a', $text);
-        $a->attr("url", $url);
+        $a->attr("href", $url);
         return $a;
     }
 
