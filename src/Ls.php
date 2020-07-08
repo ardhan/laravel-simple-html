@@ -71,6 +71,7 @@ class Ls extends HtmlTag
     public function li($text)
     {
         $this->li[] = $text;
+        return $this;
     }
 
 
@@ -83,6 +84,7 @@ class Ls extends HtmlTag
     public function lia($text, $url)
     {
         $this->li[] = El::a($text, $url);
+        return $this;
     }
 
 
