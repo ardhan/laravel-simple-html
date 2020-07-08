@@ -57,7 +57,7 @@ class Element
         return new HtmlTag('li', $text);
     }
 
-    public function List()
+    public function list()
     {
         return new List();
     }
