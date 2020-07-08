@@ -5,7 +5,7 @@ class HtmlTag
 {
     /**
      * nama dari html tag contoh div
-     * @var String
+     * @var string
      */
     protected $tag = '';
 
@@ -13,7 +13,7 @@ class HtmlTag
     /**
      * id dari suatu komponen
      * contoh <div id="div_id"></div>
-     * @var String
+     * @var string
      */
     protected $id = '';
 
@@ -22,7 +22,7 @@ class HtmlTag
      * kelas dari suatu komponen
      * contoh <div class='row span10'></div>
      * cara menyimpan: $cls["row"] = "row";
-     * @var Array
+     * @var array
      */
     protected $cls = [];
 
@@ -31,7 +31,7 @@ class HtmlTag
      * style/css inline pada komponen
      * contoh <div style='background-color:red'></div>
      * cara menyimpan: $style["background-color"] = "red";
-     * @var Array
+     * @var array
      */
     protected $style = [];
 
@@ -40,7 +40,7 @@ class HtmlTag
      * atribut khusus pada komponen
      * contoh: <meta name="author" content="ini adalah author">
      * cara menyimpan: $attr["name"] = "name";
-     * @var Array
+     * @var array
      */
     protected $attr = [];
 
@@ -49,7 +49,7 @@ class HtmlTag
      * atribut pada komponen
      * contoh: <option selected>
      * cara menyimpan: $single_attr["selected"] = "selected"
-     * @var Array
+     * @var array
      */
     protected $single_attr = [];
 
@@ -58,7 +58,7 @@ class HtmlTag
      * content dari tag
      * contoh: <div>ini content</div>
      * cara menyimpan: $content[] = $content
-     * @var Array
+     * @var array
      */
     protected $content = [];
 
@@ -91,8 +91,8 @@ class HtmlTag
 
     /**
      * set variable $tag
-     * @param  String $tag nama tag
-     * @return Object
+     * @param  string $tag nama tag
+     * @return object
      */
     public function tag($tag)
     {
@@ -103,7 +103,7 @@ class HtmlTag
 
     /**
      * set variable $closing menjadi false
-     * @return Object
+     * @return object
      */
     public function noClosing()
     {
@@ -114,7 +114,7 @@ class HtmlTag
 
     /**
      * set variable $closing menjadi true
-     * @return Object
+     * @return object
      */
     public function useClosing()
     {
@@ -125,9 +125,9 @@ class HtmlTag
 
     /**
      * menambahkan anggota variable $attr
-     * @param  String $name  nama atribut
-     * @param  String $value nilai atribut
-     * @return Object
+     * @param  string $name  nama atribut
+     * @param  string $value nilai atribut
+     * @return object
      */
     public function attr($name, $value)
     {
@@ -138,7 +138,7 @@ class HtmlTag
 
     /**
      * resolve atribut $attr menjadi string
-     * @return String
+     * @return string
      */
     function getAttr()
     {
@@ -152,8 +152,8 @@ class HtmlTag
 
     /**
      * set variable $id
-     * @param  String $id nama id
-     * @return Object
+     * @param  string $id nama id
+     * @return object
      */
     public function id($id)
     {
@@ -177,8 +177,8 @@ class HtmlTag
 
     /**
      * unset item pada variable $cls
-     * @param  String $cls array key yang akan dihapus
-     * @return Object
+     * @param  string $cls array key yang akan dihapus
+     * @return object
      */
     public function removeCls($cls)
     {
@@ -187,7 +187,11 @@ class HtmlTag
     }
 
 
-    public function getCls()
+    /**
+     * resolve variable cls menjadi attribut class html
+     * @return void
+     */
+    public function clsResolve()
     {
         if(count($this->cls) > 0){
             $cls = '';
@@ -202,7 +206,7 @@ class HtmlTag
 
     /**
      * menambahkan anggota variable $content
-     * @param  String $content konten yang dimasukkan
+     * @param  string $content konten yang dimasukkan
      * @return
      */
     public function content($content)
@@ -214,7 +218,7 @@ class HtmlTag
 
     /**
      * resolve variable $content menjadi string
-     * @return String
+     * @return string
      */
     public function getContent()
     {
@@ -228,9 +232,9 @@ class HtmlTag
 
     /**
      * menambahkan anggota ke variable $style
-     * @param  String $name  nama style
-     * @param  String $value nilai style
-     * @return Object
+     * @param  string $name  nama style
+     * @param  string $value nilai style
+     * @return object
      */
     public function style($name, $value)
     {
@@ -241,9 +245,9 @@ class HtmlTag
 
     /**
      * resolve style menjadi atribut html
-     * @return Void
+     * @return void
      */
-    public function getStyle()
+    public function styleResolve()
     {
         if(count($this->style) > 0){
             $style = '';
@@ -369,8 +373,8 @@ class HtmlTag
      */
     public function __toString()
     {
-        $this->getStyle();
-        $this->getCls();
+        $this->styleResolve();
+        $this->clsResolve();
         $t = '';
         $t .= '<'.$this->tag;
         $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
