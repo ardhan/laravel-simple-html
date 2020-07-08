@@ -28,6 +28,7 @@ class Form extends HtmlTag
 
     public function __toString()
     {
+        echo "asdfasfsdf";
         $this->attr('method', $this->method);
         $this->attr('action', $this->action);
 
