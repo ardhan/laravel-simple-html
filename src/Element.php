@@ -34,6 +34,15 @@ class Element
 
 
     /**
+     * [Div description]
+     */
+    public function Nav()
+    {
+        return new HtmlTag('nav');
+    }
+
+
+    /**
      * [Span description]
      */
     public function Span()
