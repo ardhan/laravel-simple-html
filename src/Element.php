@@ -52,11 +52,20 @@ class Element
         return $a;
     }
 
+
+    /**
+     * [Li description]
+     * @param [type] $text [description]
+     */
     public function Li($text)
     {
         return new HtmlTag('li', $text);
     }
 
+
+    /**
+     * [Ls description]
+     */
     public function Ls()
     {
         return new Ls();
@@ -139,15 +148,6 @@ class Element
     public function Table()
     {
         return new Table();
-    }
-
-
-    /**
-     * [Ul description]
-     */
-    public function Ul()
-    {
-        return new Ul();
     }
 
 
