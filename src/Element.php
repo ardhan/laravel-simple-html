@@ -169,4 +169,13 @@ class Element
     }
 
 
+    /**
+     * [Input description]
+     */
+    public function Input($type = '', $name = '', $value = '')
+    {
+        $input = new HtmlTag('input');
+    }
+
+
 }
