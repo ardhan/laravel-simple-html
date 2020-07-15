@@ -26,6 +26,18 @@ class Table extends HtmlTag
         return $this;
     }
 
+    public function padding($size)
+    {
+        $this->cellpadding = $size;
+        return $this;
+    }
+
+    public function spacing($size)
+    {
+        $this->cellspacing = $size;
+        return $this;
+    }
+
     public function useBorder(){
         $this->border = true;
         return $this;
