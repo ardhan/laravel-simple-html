@@ -69,7 +69,7 @@ class Table extends HtmlTag
         //border
         if($this->border) $this->attr("border", "1");
         $this->attr("cellspacing", $this->cellspacing);
-        $this->attr("padding", $this->cellpadding);
+        $this->attr("cellpadding", $this->cellpadding);
 
         $this->resolveRow();
         return parent::__toString();
