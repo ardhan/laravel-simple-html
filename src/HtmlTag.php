@@ -208,16 +208,30 @@ class HtmlTag
      */
     function resolveAttr()
     {
+        //resolving attr
         $attr = '';
         foreach($this->attr as $key => $value){
             $attr .= $key.'="'.$value.'" ';
         }
 
+        //resolving single attr
         $single_attr = '';
         foreach($this->single_attr as $value){
             $single_attr .= $value.' ';
         }
-        return trim($attr).' '.trim($single_attr);
+
+        //trim attr and single attr
+        $trim_attr = trim($attr);
+        $trim_single_attr = trim($single_attr);
+
+        //merge attr
+        $merge_attr = '';
+        if($trim_attr != '')
+            $merge_attr .= ' '.$trim_attr;
+        if($trim_single_attr != '')
+            $merge_attr .= ' '.$trim_single_attr;
+
+        return $merge_attr;
     }
 
 
