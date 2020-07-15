@@ -160,9 +160,25 @@ class Element
     }
 
 
+    /**
+     * membuat tr
+     * @param  [type] $content [description]
+     * @return [type]          [description]
+     */
     public function tr($content)
     {
         return new HtmlTag('tr', $content);
+    }
+
+
+    /**
+     * membuat td
+     * @param  [type] $content [description]
+     * @return [type]          [description]
+     */
+    public function td($content)
+    {
+        return new HtmlTag('td', $content);
     }
 
 
