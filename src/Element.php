@@ -160,6 +160,12 @@ class Element
     }
 
 
+    public function tr($content)
+    {
+        return new HtmlTag('tr', $content);
+    }
+
+
     /**
      * [Form description]
      */
