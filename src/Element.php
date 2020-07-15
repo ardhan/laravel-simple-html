@@ -165,7 +165,7 @@ class Element
      * @param  [type] $content [description]
      * @return [type]          [description]
      */
-    public function tr($content)
+    public function tr($content = '')
     {
         return new HtmlTag('tr', $content);
     }
@@ -176,7 +176,7 @@ class Element
      * @param  [type] $content [description]
      * @return [type]          [description]
      */
-    public function td($content)
+    public function td($content = '')
     {
         return new HtmlTag('td', $content);
     }
