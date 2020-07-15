@@ -60,6 +60,27 @@ class Form extends HtmlTag
     }
 
 
+    /**
+     * [input description]
+     * @param  [type] $type  [description]
+     * @param  [type] $name  [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
+    public function input($type, $name, $value)
+    {
+        $this->formContent[$name] = El::input($type, $name, $value);
+        return $this;
+    }
+
+
+    public function resolveFormContent()
+    {
+        foreach($this->formContent as $fc){
+            echo $fc;
+            $this->content($fc);
+        }
+    }
 
 
     /**
@@ -70,6 +91,7 @@ class Form extends HtmlTag
     {
         $this->attr('method', $this->method);
         $this->attr('action', $this->action);
+        $this->resolveFormContent();
 
         return parent::__toString();
     }
