@@ -11,14 +11,18 @@ class Table extends HtmlTag
     protected $border = false;
     protected $colWidth = [];
 
+
+    /**
+     * kontruksi kelas
+     */
     public function __construct()
     {
         $this->tag('table');
     }
 
-    public function colWidth($index, $size)
+    public function colWidth($size)
     {
-        $this->colWidth[$index] = $size;
+        $this->colWidth = $size;
         return $this;
     }
 
@@ -37,8 +41,12 @@ class Table extends HtmlTag
     {
         foreach($this->row as $row){
             $tr = El::tr();
+            $index = 0;
             foreach($row["col"] as $col){
-                $tr->content(El::td($col));
+                $td = (is_object($col)) ? $col : El::td($col);
+                if(isset($this->colWidth[$index])) $td->style("width", $this->colWidth[$index]);
+                $tr->content($td);
+                $index++;
             }
             $this->content($tr);
         }
@@ -48,7 +56,8 @@ class Table extends HtmlTag
     {
         //border
         if($this->border) $this->attr("border", "1");
-
+        $this->attr("cellspacing", $this->cellspacing);
+        $this->attr("padding", $this->cellpadding);
 
         $this->resolveRow();
         return parent::__toString();
