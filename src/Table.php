@@ -32,6 +32,7 @@ class Table extends HtmlTag
             foreach($row["col"] as $col){
                 $tr->content(El::td($col));
             }
+            $this->content($tr);
         }
     }
 
