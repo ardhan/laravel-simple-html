@@ -28,15 +28,6 @@ class HtmlTag
 
 
     /**
-     * style/css inline pada komponen
-     * contoh <div style='background-color:red'></div>
-     * cara menyimpan: $style["background-color"] = "red";
-     * @var array
-     */
-    protected $style = [];
-
-
-    /**
      * atribut khusus pada komponen
      * contoh: <meta name="author" content="ini adalah author">
      * cara menyimpan: $attr["name"] = "name";
@@ -73,6 +64,15 @@ class HtmlTag
 
 
     /**
+     * style/css inline pada komponen
+     * contoh <div style='background-color:red'></div>
+     * cara menyimpan: $style["background-color"] = "red";
+     * @var array
+     */
+    protected $style = [];
+
+
+    /**
      * fungsi untuk mengkonstruksi kelas, urutan variable bedasarkan prioritas
      * @param string $tag     prioritas karena setiap tag harus memiliki nama
      * @param string $content dijadikan prioritas agar setiap membuat kelas mudah memasukkan konten
@@ -98,55 +98,6 @@ class HtmlTag
     {
         $this->tag = $tag;
         return $this;
-    }
-
-
-    /**
-     * set variable $closing menjadi false
-     * @return object
-     */
-    public function noClosing()
-    {
-        $this->closing = false;
-        return $this;
-    }
-
-
-    /**
-     * set variable $closing menjadi true
-     * @return object
-     */
-    public function useClosing()
-    {
-        $this->closing = true;
-        return $this;
-    }
-
-
-    /**
-     * menambahkan anggota variable $attr
-     * @param  string $name  nama atribut
-     * @param  string $value nilai atribut
-     * @return object
-     */
-    public function attr($name, $value)
-    {
-        $this->attr[$name] = $value;
-        return $this;
-    }
-
-
-    /**
-     * resolve atribut $attr menjadi string
-     * @return string
-     */
-    function getAttr()
-    {
-        $attr = '';
-        foreach($this->attr as $key => $value){
-            $attr .= $key.'="'.$value.'" ';
-        }
-        return trim($attr);
     }
 
 
@@ -191,7 +142,7 @@ class HtmlTag
      * resolve variable cls menjadi attribut class html
      * @return void
      */
-    public function clsResolve()
+    public function resolveCls()
     {
         if(count($this->cls) > 0){
             $cls = '';
@@ -201,6 +152,72 @@ class HtmlTag
 
             $this->attr("class", trim($cls));
         }
+    }
+
+
+    /**
+     * set variable $closing menjadi false
+     * @return object
+     */
+    public function noClosing()
+    {
+        $this->closing = false;
+        return $this;
+    }
+
+
+    /**
+     * set variable $closing menjadi true
+     * @return object
+     */
+    public function useClosing()
+    {
+        $this->closing = true;
+        return $this;
+    }
+
+
+    /**
+     * menambahkan anggota variable $attr
+     * @param  string $name  nama atribut
+     * @param  string $value nilai atribut
+     * @return object
+     */
+    public function attr($name, $value)
+    {
+        $this->attr[$name] = $value;
+        return $this;
+    }
+
+
+    /**
+     * [single_attr description]
+     * @param  [type] $attr [description]
+     * @return [type]       [description]
+     */
+    public function single_attr($attr)
+    {
+        $this->single_attr[] = $attr;
+        return $this;
+    }
+
+
+    /**
+     * resolve atribut $attr menjadi string
+     * @return string
+     */
+    function resolveAttr()
+    {
+        $attr = '';
+        foreach($this->attr as $key => $value){
+            $attr .= $key.'="'.$value.'" ';
+        }
+
+        $single_attr = '';
+        foreach($this->single_attr as $value){
+            $single_attr .= $value.' ';
+        }
+        return trim($attr).' '.trim($single_attr);
     }
 
 
@@ -220,7 +237,7 @@ class HtmlTag
      * resolve variable $content menjadi string
      * @return string
      */
-    public function getContent()
+    public function resolveContent()
     {
         $content = '';
         foreach($this->content as $c){
@@ -247,7 +264,7 @@ class HtmlTag
      * resolve style menjadi atribut html
      * @return void
      */
-    public function styleResolve()
+    public function resolveStyle()
     {
         if(count($this->style) > 0){
             $style = '';
@@ -260,126 +277,19 @@ class HtmlTag
 
 
     /**
-     * menambahkan style width
-     * @param  [type] $size [description]
-     * @return [type]       [description]
-     */
-    public function width($size)
-    {
-        $this->style("width", $size);
-        return $this;
-    }
-
-
-    /**
-     * menambahkan style background
-     * @param  [type] $color [description]
-     * @return [type]        [description]
-     */
-    public function background($color)
-    {
-        $this->style('background', $color);
-        return $this;
-    }
-
-
-    /**
-     * menambahkan style padding-left
-     * @param  [type] $size [description]
-     * @return [type]       [description]
-     */
-    public function padding_left($size)
-    {
-        $this->style('padding-left', $size);
-        return $this;
-    }
-
-
-    /**
-     * menambahkan style padding-top
-     * @param  [type] $size [description]
-     * @return [type]       [description]
-     */
-    public function padding_top($size)
-    {
-        $this->style('padding-top', $size);
-        return $this;
-    }
-
-
-    /**
-     * menambahkan style padding-right
-     * @param  [type] $size [description]
-     * @return [type]       [description]
-     */
-    public function padding_right($size)
-    {
-        $this->style('padding-right', $size);
-        return $this;
-    }
-
-
-    /**
-     * menambahkan style padding-bottom
-     * @param  [type] $size [description]
-     * @return [type]       [description]
-     */
-    public function padding_bottom($size)
-    {
-        $this->style('padding-bottom', $size);
-        return $this;
-    }
-
-
-    /**
-     * [padding description]
-     * @param  string $left   [description]
-     * @param  string $right  [description]
-     * @param  string $top    [description]
-     * @param  string $bottom [description]
-     * @return [type]         [description]
-     */
-    public function padding($left = '', $right = '', $top = '', $bottom = '')
-    {
-        if(($right == '') && ($top == '') && ($bottom == '')){
-            $right = $left;
-            $top = $left;
-            $bottom = $left;
-        }
-
-        if($left != '') $this->padding_left($left);
-        if($right != '') $this->padding_right($right);
-        if($top != '') $this->padding_top($top);
-        if($bottom != '') $this->padding_bottom($bottom);
-
-        return $this;
-    }
-
-
-    /**
-     * [text_center description]
-     * @return [type] [description]
-     */
-    public function text_center()
-    {
-        $this->style('text-align', 'center');
-        return $this;
-    }
-
-
-    /**
      * [__toString description]
      * @return string [description]
      */
     public function __toString()
     {
-        $this->styleResolve();
-        $this->clsResolve();
+        $this->resolveCls();
+        $this->resolveStyle();
+
         $t = '';
         $t .= '<'.$this->tag;
-        $t .= (count($this->attr) > 0) ? ' '.trim($this->getAttr()) : '';
+        $t .= $this->resolveAttr();
         $t .= '>';
-        $t .= $this->getContent();
+        $t .= $this->resolveContent();
         $t .= ($this->closing == true) ? '</'.$this->tag.'>' : '';
         return $t;
     }
