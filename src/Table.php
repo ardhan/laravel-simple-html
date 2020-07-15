@@ -36,7 +36,7 @@ class Table extends HtmlTag
      * [protected description]
      * @var array
      */
-    protected $width = [];
+    protected $colWidth = [];
 
 
     /**
@@ -53,7 +53,7 @@ class Table extends HtmlTag
      * @param  [type] $size [description]
      * @return [type]       [description]
      */
-    public function width($size)
+    public function colWidth($size)
     {
         $this->colWidth = $size;
         return $this;
