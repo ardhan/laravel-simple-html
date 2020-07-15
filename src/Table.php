@@ -4,12 +4,39 @@ use Ardhan\LaravelSimpleHtml\Facades\Element as El;
 
 class Table extends HtmlTag
 {
+    /**
+     * [protected description]
+     * @var array
+     */
     protected $row = [];
-    protected $col = [];
+
+
+    /**
+     * [protected description]
+     * @var string
+     */
     protected $cellpadding = 0;
+
+
+    /**
+     * [protected description]
+     * @var string
+     */
     protected $cellspacing = 0;
+
+
+    /**
+     * [protected description]
+     * @var boolean
+     */
     protected $border = false;
-    protected $colWidth = [];
+
+
+    /**
+     * [protected description]
+     * @var array
+     */
+    protected $width = [];
 
 
     /**
@@ -20,35 +47,69 @@ class Table extends HtmlTag
         $this->tag('table');
     }
 
-    public function colWidth($size)
+
+    /**
+     * [width description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
+    public function width($size)
     {
         $this->colWidth = $size;
         return $this;
     }
 
+
+    /**
+     * [padding description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
     public function padding($size)
     {
         $this->cellpadding = $size;
         return $this;
     }
 
+
+    /**
+     * [spacing description]
+     * @param  [type] $size [description]
+     * @return [type]       [description]
+     */
     public function spacing($size)
     {
         $this->cellspacing = $size;
         return $this;
     }
 
+
+    /**
+     * [useBorder description]
+     * @return [type] [description]
+     */
     public function useBorder(){
         $this->border = true;
         return $this;
     }
 
+
+    /**
+     * [row description]
+     * @param  [type] $col [description]
+     * @return [type]      [description]
+     */
     public function row($col)
     {
         $this->row[] = ["col" => $col];
         return $this;
     }
 
+
+    /**
+     * [resolveRow description]
+     * @return void [description]
+     */
     public function resolveRow()
     {
         foreach($this->row as $row){
@@ -64,6 +125,11 @@ class Table extends HtmlTag
         }
     }
 
+
+    /**
+     * [__toString description]
+     * @return string [description]
+     */
     public function __toString()
     {
         //border
