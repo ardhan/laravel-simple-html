@@ -19,10 +19,24 @@ class Form extends HtmlTag
 
 
     /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $formAction;
+
+
+    /**
      * konten dari form
      * @var array
      */
     protected $formContent;
+
+
+    /**
+     * [protected description]
+     * @var [type]
+     */
+    protected $labelContent;
 
 
     /**
@@ -60,6 +74,14 @@ class Form extends HtmlTag
     }
 
 
+    public function label($caption)
+    {
+        $name = array_key_last($this->formContent);
+        $this->labelContent[$name] = El::label($name, $caption);
+        return $this;
+    }
+
+
     /**
      * [input description]
      * @param  [type] $type  [description]
@@ -74,11 +96,45 @@ class Form extends HtmlTag
     }
 
 
+    /**
+     * [textarea description]
+     * @param  [type] $name  [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
+    public function textarea($name, $value)
+    {
+        $this->formContent[$name] = El::textarea($name, $value);
+        return $this;
+    }
+
+
+    /**
+     * [submit description]
+     * @param  [type] $caption [description]
+     * @return [type]          [description]
+     */
+    public function submit($caption)
+    {
+        $this->formAction .= El::submit($caption);
+        return $this;
+    }
+
+
+    /**
+     * [resolveFormContent description]
+     * @return [type] [description]
+     */
     public function resolveFormContent()
     {
-        foreach($this->formContent as $fc){
-            echo $fc;
-            $this->content($fc);
+        foreach($this->formContent as $key => $value){
+            $container = El::div('', 'container-form-content');
+
+            if(isset($this->labelContent[$key]))
+                $container->content(El::label($key, $this->labelContent[$key]));
+            $container->content($value);
+
+            $this->content($container);
         }
     }
 
@@ -92,6 +148,7 @@ class Form extends HtmlTag
         $this->attr('method', $this->method);
         $this->attr('action', $this->action);
         $this->resolveFormContent();
+        $this->content($this->formAction);
 
         return parent::__toString();
     }
