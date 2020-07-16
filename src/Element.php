@@ -246,4 +246,27 @@ class Element
     }
 
 
+    /**
+     * [Select description]
+     * @param [type] $name [description]
+     */
+    public function Select($name)
+    {
+        return new Select($name);
+    }
+
+
+    /**
+     * [Option description]
+     * @param [type] $value   [description]
+     * @param [type] $caption [description]
+     */
+    public function Option($value, $caption)
+    {
+        $option = new HtmlTag('option');
+        $option->attr("value", $value)->content($caption);
+        return $option;
+    }
+
+
 }
