@@ -96,6 +96,13 @@ class Form extends HtmlTag
     }
 
 
+    public function select($select)
+    {
+        $this->formContent[$select->getAttr("name")] = $select;
+        return $this;
+    }
+
+
     /**
      * [textarea description]
      * @param  [type] $name  [description]
