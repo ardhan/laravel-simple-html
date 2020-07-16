@@ -27,9 +27,9 @@ class Element
     /**
      * [Div description]
      */
-    public function Div()
+    public function Div($content = '', $cls = '')
     {
-        return new HtmlTag('div');
+        return new HtmlTag('div', $content, $cls);
     }
 
 
@@ -197,8 +197,52 @@ class Element
     public function Input($type = '', $name = '', $value = '')
     {
         $input = new HtmlTag('input');
-        $input->attr("name", $name)->attr("value", $value);
+        $input->noClosing()->attr("name", $name)->attr("value", $value);
         return $input;
+    }
+
+
+    public function TextArea($name = '', $value = '')
+    {
+        $textarea = new HtmlTag('textarea');
+        $textarea->attr('name', $name)->attr('value', $value);
+        return $textarea;
+    }
+
+
+    /**
+     * [Button description]
+     * @param string $type    [description]
+     * @param string $caption [description]
+     */
+    public function Button($type = '', $caption = '')
+    {
+        $button = new HtmlTag('button');
+        $button->attr('type', $type);
+        $button->content($caption);
+        return $button;
+    }
+
+
+    /**
+     * [Submit description]
+     * @param [type] $caption [description]
+     */
+    public function Submit($caption)
+    {
+        $button = $this->Button('submit', $caption);
+        return $button;
+    }
+
+
+    /**
+     * Label
+     */
+    public function Label($lbfor = '', $caption)
+    {
+        $label = new HtmlTag('label');
+        $label->attr('for', $lbfor)->content($caption);
+        return $label;
     }
 
 
