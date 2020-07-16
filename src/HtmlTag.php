@@ -190,6 +190,19 @@ class HtmlTag
     }
 
 
+    public function getAttr($name)
+    {
+
+        if(isset($this->attr[$name])){
+            return $this->attr[$name];
+        }else{
+            return "";
+        }
+
+
+    }
+
+
     /**
      * [single_attr description]
      * @param  [type] $attr [description]
