@@ -162,7 +162,7 @@ class Page
      */
     public function title($title)
     {
-        $this->$title = $title;
+        $this->title = $title;
         return $this;
     }
 
