@@ -198,6 +198,7 @@ class Element
     {
         $input = new HtmlTag('input');
         $input->attr("name", $name)->attr("value", $value);
+        return $input;
     }
 
 
