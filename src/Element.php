@@ -3,10 +3,19 @@ namespace Ardhan\LaravelSimpleHtml;
 
 class Element
 {
+
+    /**
+     * contruct class
+     */
     public function __construct()
     {
     }
 
+
+    /**
+     * Creating html tag
+     * @param string
+     */
     public function Tag($tag)
     {
         return new HtmlTag($tag);
@@ -14,7 +23,20 @@ class Element
 
 
     /**
-     * [Meta description]
+     * insert script
+     */
+    public function script($content = '')
+    {
+        $script = new HtmlTag('script');
+        $script->content($content);
+        return $script;
+    }
+
+
+    /**
+     * Meta
+     * @param string $name
+     * @param string $value
      */
     public function Meta($name, $value)
     {
@@ -25,59 +47,156 @@ class Element
 
 
     /**
-     * [Div description]
+     * Div
+     * @param string $content
+     * @param string $cls
+     * @param string $id
      */
-    public function Div($content = '', $cls = '')
+    public function Div($content = '', $cls = '', $id = '')
     {
-        return new HtmlTag('div', $content, $cls);
+        return new HtmlTag('div', $content, $cls, $id);
     }
 
 
     /**
-     * [Div description]
+     * Nav
+     * @param string $content
+     * @param string $cls
+     * @param string $id
      */
-    public function Nav()
+    public function Nav($content = '', $cls = '', $id = '')
     {
-        return new HtmlTag('nav');
+        return new HtmlTag('nav', $content, $cls, $id);
     }
 
 
     /**
-     * [Span description]
+     * Span
+     * @param string $content
+     * @param string $cls
+     * @param string $id
      */
-    public function Span()
+    public function Span($content = '', $cls = '', $id = '')
     {
-        return new HtmlTag('span');
+        $span = new HtmlTag('span', $content, $cls, $id);
+        return $span;
     }
 
 
     /**
-     * [A description]
+     * AImg
+     * @param string $src
+     * @param string $url
+     * @param string $cls
+     * @param string $id
+     * @param string $alt
      */
-    public function A($text, $url)
+    function AImg($src, $url, $cls = '', $id = '', $alt = '')
     {
-        $a = new HtmlTag('a', $text);
+        $a = new HtmlTag('a', $this->Img($src, $alt));
         $a->attr("href", $url);
+        $a->cls($cls);
+        $a->id($id);
         return $a;
     }
 
 
     /**
-     * [Li description]
-     * @param [type] $text [description]
+     * Anchor
+     * @param string $text
+     * @param string $url
+     * @param string $cls
+     * @param string $id
      */
-    public function Li($text)
+    public function A($text, $url, $cls = '', $id = '')
     {
-        return new HtmlTag('li', $text);
+        $a = new HtmlTag('a', $text);
+        $a->attr("href", $url);
+        $a->cls($cls);
+        $a->id($id);
+        return $a;
     }
 
 
     /**
-     * [Ls description]
+     * I
+     * @param string $cls
+     * @param string $content
      */
-    public function Ls()
+    public function I($cls, $content = '')
     {
-        return new Ls();
+        return new HtmlTag('i', $content, $cls);
+    }
+
+
+    /**
+     * Img
+     * @param string $src
+     * @param string $alt
+     */
+    public function Img($src, $alt = '')
+    {
+        $a = new HtmlTag('img');
+        $a->attr("src", $src)->attr('alt', $alt);
+        return $a;
+    }
+
+
+    /**
+     * Svg Icon
+     * @param string $content
+     */
+    public function Svg($content = '')
+    {
+        $svg = new HtmlTag('svg');
+        $svg->attr("xmlns", "http://www.w3.org/2000/svg");
+        $svg->attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
+        $svg->attr("width", "24px");
+        $svg->attr("height", "24px");
+        $svg->attr("viewBox", "0 0 24 24");
+        $svg->attr("version", "1.1.");
+        $svg->content($content);
+        return $svg;
+    }
+
+
+    /**
+     * g
+     * @param  string $content [description]
+     * @return object          [description]
+     */
+    public function g($content = '')
+    {
+        $g = new HtmlTag('g');
+        $g->attr('stroke', 'none');
+        $g->attr('stroke-width', '1');
+        $g->attr('fill', 'none');
+        $g->attr('fill-rule', 'evenodd');
+        $g->content($content);
+        return $g;
+    }
+
+
+    /**
+     * Item Li
+     * @param string $text
+     * @param string $cls
+     * @param string $id
+     */
+    public function Li($text, $cls = '', $id = '')
+    {
+        return new HtmlTag('li', $text, $cls, $id);
+    }
+
+
+    /**
+     * UL / OL
+     * @param string $cls
+     * @param string $id
+     */
+    public function Ls($cls = '', $id = '')
+    {
+        return new Ls($cls, $id);
     }
 
 
@@ -115,9 +234,9 @@ class Element
      * [H3 description]
      * @param [type] $text [description]
      */
-    public function H3($text)
+    public function H3($text, $cls = '', $id = '')
     {
-        return new HtmlTag('h3', $text);
+        return new HtmlTag('h3', $text, $cls, $id);
     }
 
 
@@ -215,10 +334,11 @@ class Element
      * @param string $type    [description]
      * @param string $caption [description]
      */
-    public function Button($type = '', $caption = '')
+    public function Button($caption = '', $cls = '', $id = '')
     {
         $button = new HtmlTag('button');
-        $button->attr('type', $type);
+        $button->cls($cls);
+        $button->id($id);
         $button->content($caption);
         return $button;
     }
@@ -230,7 +350,8 @@ class Element
      */
     public function Submit($caption)
     {
-        $button = $this->Button('submit', $caption);
+        $button = $this->Button($caption);
+        $button->attr("type", "submit");
         return $button;
     }
 
