@@ -49,6 +49,7 @@ class Form extends HtmlTag
         parent::__construct('form');
         $this->action = $action;
         $this->method = $method;
+        return $this;
     }
 
 
@@ -78,6 +79,12 @@ class Form extends HtmlTag
     {
         $name = array_key_last($this->formContent);
         $this->labelContent[$name] = El::label($name, $caption);
+        return $this;
+    }
+
+    public function customInput($name, $content)
+    {
+        $this->formContent[$name] = $content;
         return $this;
     }
 
