@@ -87,6 +87,13 @@ class Page
      */
     protected $body;
 
+
+    /**
+     * [protected description]
+     * @var array
+     */
+    protected $script = [];
+
     /**
      * Konstruksi kelas page
      * @param string $title       judul page
@@ -263,6 +270,34 @@ class Page
 
 
     /**
+     * [script description]
+     * @param  [type] $script   [description]
+     * @param  string $position [description]
+     * @return [type]           [description]
+     */
+    public function script($script, $position = "bottom")
+    {
+        $this->script[] = ["position" => $position, "script" => $script];
+        return $this;
+    }
+
+
+    public function resolveScript()
+    {
+        foreach($this->script as $script)
+        {
+            if($script["position"] == "top"){
+                $this->head->content(El::script($script["script"]));
+            }
+
+            if($script["position"] == "bottom"){
+                $this->body->content(El::script($script["script"]));
+            }
+        }
+    }
+
+
+    /**
      * [background description]
      * @param  string
      * @return object
@@ -281,10 +316,12 @@ class Page
     public function __toString()
     {
         //resolving
-        $this->cssResolve();
-        $this->metaResolve();
         $this->head->content(new HtmlTag('title', $this->title));
+        $this->metaResolve();
+        $this->cssResolve();
+
         $this->contentResolve();
+        $this->resolveScript();
         $this->jsResolve();
 
         $html = new HtmlTag('html');
