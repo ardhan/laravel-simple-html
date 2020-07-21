@@ -29,7 +29,7 @@ class Ls extends HtmlTag
      * konstruksi kelas
      * @param string $type [description]
      */
-    public function __construct($type = "u")
+    public function __construct($type = "u", $cls = '', $id = '')
     {
         if($type == "u"){
             $this->type_u();
@@ -37,6 +37,9 @@ class Ls extends HtmlTag
         elseif($type == "o"){
             $this->type_o();
         }
+
+        if($cls != '') $this->cls($cls);
+        if($id != '') $this->id($id);
 
         parent::__construct($this->type.'l');
     }
