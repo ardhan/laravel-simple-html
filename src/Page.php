@@ -321,8 +321,9 @@ class Page
         $this->cssResolve();
 
         $this->contentResolve();
-        $this->resolveScript();
+
         $this->jsResolve();
+        $this->resolveScript();
 
         $html = new HtmlTag('html');
         $html->content($this->head)->content($this->body);
