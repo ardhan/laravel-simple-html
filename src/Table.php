@@ -45,6 +45,7 @@ class Table extends HtmlTag
     public function __construct()
     {
         $this->tag('table');
+        return $this;
     }
 
 
