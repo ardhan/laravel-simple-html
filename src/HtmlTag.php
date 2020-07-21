@@ -84,7 +84,7 @@ class HtmlTag
         $this->tag = $tag;
         if($content != '') $this->content($content);
         if($cls != '') $this->cls($cls);
-        if($this->id != '') $this->id($id);
+        if($id != '') $this->id($id);
         return $this;
     }
 
@@ -312,12 +312,13 @@ class HtmlTag
         $this->resolveCls();
         $this->resolveStyle();
 
-        $t = '';
+        $t = "\n";
         $t .= '<'.$this->tag;
         $t .= $this->resolveAttr();
         $t .= '>';
         $t .= $this->resolveContent();
         $t .= ($this->closing == true) ? '</'.$this->tag.'>' : '';
+        $t .= "\n";
         return $t;
     }
 }
