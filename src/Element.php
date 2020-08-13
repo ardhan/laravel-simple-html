@@ -313,10 +313,24 @@ class Element
     /**
      * [Input description]
      */
-    public function Input($type = '', $name = '', $value = '')
+    public function Input($type = '', $name = '', $value = '', $cls = '', $id = '')
     {
         $input = new HtmlTag('input');
-        $input->noClosing()->attr("name", $name)->attr("value", $value);
+        $input->noClosing()->attr('type', $type)->attr("name", $name)->attr("value", $value);
+        if($cls != '') $input->cls($cls);
+        if($id != '') $input->id($id);
+        return $input;
+    }
+
+    public function InputText($name, $value = '', $cls = '', $id = '')
+    {
+        return $this->Input('text', $name, $value, $cls, $id);
+    }
+
+
+    public function InputHidden($name, $value)
+    {
+        $input = $this->Input('hidden', $name, $value);
         return $input;
     }
 

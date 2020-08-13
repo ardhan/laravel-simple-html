@@ -44,6 +44,8 @@ class HtmlTag
      */
     protected $single_attr = [];
 
+    protected $attr_no_quote = [];
+
 
     /**
      * content dari tag
@@ -189,6 +191,12 @@ class HtmlTag
         return $this;
     }
 
+    public function attrNoQuote($name, $value)
+    {
+        $this->attr_no_quote[$name] = $value;
+        return $this;
+    }
+
 
     public function getAttr($name)
     {
@@ -233,9 +241,16 @@ class HtmlTag
             $single_attr .= $value.' ';
         }
 
+        //resolving single attr_no_quote
+        $attr_no_quote = '';
+        foreach($this->attr_no_quote as $key => $value){
+            $attr_no_quote .= $key.'='.$value;
+        }
+
         //trim attr and single attr
         $trim_attr = trim($attr);
         $trim_single_attr = trim($single_attr);
+        $trim_attr_no_quote = trim($attr_no_quote);
 
         //merge attr
         $merge_attr = '';
@@ -243,6 +258,8 @@ class HtmlTag
             $merge_attr .= ' '.$trim_attr;
         if($trim_single_attr != '')
             $merge_attr .= ' '.$trim_single_attr;
+        if($trim_attr_no_quote != '')
+            $merge_attr .= ' '.$trim_attr_no_quote;
 
         return $merge_attr;
     }
@@ -312,13 +329,13 @@ class HtmlTag
         $this->resolveCls();
         $this->resolveStyle();
 
-        $t = "\n";
+        $t = "";
         $t .= '<'.$this->tag;
         $t .= $this->resolveAttr();
         $t .= '>';
         $t .= $this->resolveContent();
         $t .= ($this->closing == true) ? '</'.$this->tag.'>' : '';
-        $t .= "\n";
+        //$t .= ;
         return $t;
     }
 }

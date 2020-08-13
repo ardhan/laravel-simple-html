@@ -8,7 +8,7 @@ class Select extends HtmlTag
      * [protected description]
      * @var [type]
      */
-    protected $option;
+    protected $option = [];
 
 
     /**
@@ -25,6 +25,7 @@ class Select extends HtmlTag
     {
         $this->tag("select");
         $this->attr("name", $name);
+        return $this;
     }
 
 
@@ -37,6 +38,14 @@ class Select extends HtmlTag
     public function option($value, $caption)
     {
         $this->option[$value] = El::option($value, $caption);
+        return $this;
+    }
+
+    public function options($options)
+    {
+        foreach($options as $key => $value){
+            $this->option($key, $value);
+        }
         return $this;
     }
 
